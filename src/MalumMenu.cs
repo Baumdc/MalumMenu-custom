@@ -9,6 +9,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 
+
 namespace MalumMenu;
 
 [BepInAutoPlugin]
@@ -37,6 +38,8 @@ public partial class MalumMenu : BasePlugin
     public static ConfigEntry<bool> noTelemetry;
     public static ConfigEntry<string> guestFriendCode;
     public static ConfigEntry<bool> guestMode;
+    public static ConfigEntry<bool> loadProfileOnLaunch;
+    public static ConfigEntry<bool> onboardingCompleted;
 
     public override void Load()
     {
@@ -89,6 +92,15 @@ public partial class MalumMenu : BasePlugin
                                 "NoTelemetry",
                                 true,
                                 "When enabled, it will stop Among Us from collecting analytics of your games and sending them to Innersloth using Unity Analytics");
+        loadProfileOnLaunch = Config.Bind("MalumMenu.QOL",
+                                "LoadProfileonLaunch",
+                                false,
+                                "When enabled, it will automatically load your Profile when the game is launched");
+
+        onboardingCompleted = Config.Bind("MalumMenu.System", 
+                                "OnboardingCompleted", 
+                                false, 
+                                "Internal flag to track if onboarding is done.");
 
         // Passives are enabled by default
         CheatToggles.unlockFeatures = CheatToggles.freeCosmetics = CheatToggles.avoidBans = true;
@@ -102,6 +114,17 @@ public partial class MalumMenu : BasePlugin
         doorsUI = AddComponent<DoorsUI>();
         tasksUI = AddComponent <TasksUI>();
         protectUI = AddComponent<ProtectUI>();
+
+        if (!onboardingCompleted.Value)
+        {
+            AddComponent<OnboardingUI>();
+        }
+
+        //Logic for profile loading on startup
+        if (loadProfileOnLaunch.Value)
+        {
+            CheatToggles.LoadTogglesFromProfile();
+        }
 
         AddComponent<CheatToggles.KeybindListener>().Plugin = this;
 
