@@ -93,12 +93,12 @@ public class OnboardingUI : MonoBehaviour
         GUILayout.Space(20);
 
         // 3. Settings
-        GUILayout.Label("3. Do you want to load the Profile automatically?", labelStyle);
+        /*GUILayout.Label("3. Do you want to load the Profile automatically?", labelStyle);
         MalumMenu.MalumMenu.loadProfileOnLaunch.Value = GUILayout.Toggle(
             MalumMenu.MalumMenu.loadProfileOnLaunch.Value,
             " Load Profile on Startup",
             new GUIStyle(GUI.skin.toggle) { fontSize = 18 }
-        );
+        );*/
 
         GUILayout.FlexibleSpace();
 

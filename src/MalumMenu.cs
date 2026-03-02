@@ -92,10 +92,6 @@ public partial class MalumMenu : BasePlugin
                                 "NoTelemetry",
                                 true,
                                 "When enabled, it will stop Among Us from collecting analytics of your games and sending them to Innersloth using Unity Analytics");
-        loadProfileOnLaunch = Config.Bind("MalumMenu.QOL",
-                                "LoadProfileonLaunch",
-                                false,
-                                "When enabled, it will automatically load your Profile when the game is launched");
 
         onboardingCompleted = Config.Bind("MalumMenu.System", 
                                 "OnboardingCompleted", 
@@ -118,12 +114,6 @@ public partial class MalumMenu : BasePlugin
         if (!onboardingCompleted.Value)
         {
             AddComponent<OnboardingUI>();
-        }
-
-        //Logic for profile loading on startup
-        if (loadProfileOnLaunch.Value)
-        {
-            CheatToggles.LoadTogglesFromProfile();
         }
 
         AddComponent<CheatToggles.KeybindListener>().Plugin = this;
