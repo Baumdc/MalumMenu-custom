@@ -12,7 +12,7 @@ public class OnboardingUI : MonoBehaviour
     private GUIStyle littleStyle;
     private GUIStyle labelStyle;
     private GUIStyle buttonStyle;
-    private Color windowColor = new Color(0.1f, 0.1f, 0.1f, 1f);
+    private Color windowColor = Color.white;
 
     private void Start()
     {
